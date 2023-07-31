@@ -1,0 +1,15 @@
+double fib(unsigned n)
+{
+  static const unsigned N = 1500;
+  thread_local static double value[N] = { 0., 1. };
+  thread_local static bool stored[N] = { true, true };
+
+  if (N <= n)
+    return HUGE_VAL;
+  
+  if (stored[n])
+    return value[n];
+
+  stored[n] = true;
+  return value[n] = fib(n - 1) + fib(n - 2);
+}
